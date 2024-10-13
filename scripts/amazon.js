@@ -1,4 +1,4 @@
-
+import {cart} from '../data/cart.js';
 
 let productsHTML = ``;
 
@@ -27,7 +27,7 @@ productsHTML += `
             </div>
 
             <div class="product-quantity-container">
-                <select>
+                <select class="js-quantity-selector-${product.id}">
                 <option selected value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -43,7 +43,7 @@ productsHTML += `
 
             <div class="product-spacer"></div>
 
-            <div class="added-to-cart">
+            <div class="added-to-cart js-added-to-cart-${product.id}">
                 <img src="images/icons/checkmark.png ">
                 Added
             </div>
@@ -66,6 +66,33 @@ document.querySelectorAll('.js-add-to-cart')
       
        const productId = button.dataset.productId;
 
+      
+       let selectedQuantity = Number(document.querySelector(`.js-quantity-selector-${productId}`)
+       .value)
+
+       
+     
+     
+       
+       
+    //    let timeoutAddedToCartNotification = setTimeout(() => {
+    //     document.querySelector(`.js-added-to-cart-${productId}`).style.opacity = 0;
+    //    }
+    //     , 2000)
+
+    const addedMessageTimeouts = {};
+
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+
+      addedMessage.classList.add('added-to-cart-visible');
+    })});
+
+
+       
+
+
 let matchingItem;
 
        cart.forEach((item) => {
@@ -75,17 +102,21 @@ matchingItem = item;
        });
 
        if (matchingItem) {
-        matchingItem.quantity += 1;
+        matchingItem.quantity += selectedQuantity;
        } else {
         cart.push({
             productId: productId,
-            quantity: 1,
+            quantity: selectedQuantity,
            })
        }
+
+
+
 
        let cartQuantity = 0;
        cart.forEach((item) =>{
             cartQuantity += item.quantity;
+           
        });
 
        document.querySelector('.js-cart-quantity')
@@ -93,7 +124,21 @@ matchingItem = item;
 
 
     
+   
        
+    
+    
+
+       
+       
+    
        
     }); 
-});
+
+    
+})
+
+
+
+   
+
