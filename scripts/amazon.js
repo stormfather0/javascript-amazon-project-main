@@ -1,4 +1,6 @@
-
+import {cart} from '../data/cart.js';
+// to rename variable: import {cart as myCart}
+import {products} from '../data/products.js'
 
 let productsHTML = ``;
 
